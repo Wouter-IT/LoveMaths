@@ -17,6 +17,13 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         })
     }
+
+    //Checks if user presses Enter and allows it to use it to Submit their answer.
+    document.getElementById('answer-box').addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            checkAnswer();
+        }
+    })
     runGame("addition");
 })
 
@@ -25,6 +32,12 @@ document.addEventListener("DOMContentLoaded", function() {
  * and after the user's answer has been processed
  */
 function runGame(gameType) {
+    // Empties the answer box after every answer.
+    document.getElementById('answer-box').value = '';
+
+    // sets the cursor to be in the box, so you can immediately type your answer without clicking on it first.
+    document.getElementById('answer-box').focus();
+    
     // Generates two random numbers between 1 and 25. Floor rounds the code down to the nearest integer. +1 ensures it's never 0 and can be 25.
     let num1 = Math.floor(Math.random() * 25) +1;
     let num2 = Math.floor(Math.random() * 25) +1;
@@ -46,13 +59,6 @@ function runGame(gameType) {
             alert(`Unimplemented operator ${gameType}`);
             throw(`Unimplemented operator ${gameType}". Aborting!"`);
     }
-
-    // if (gameType === "addition") {
-    //     displayAdditionQuestion(num1, num2);
-    // } else {
-    //     alert(`Unknown game type: ${gameType}`);
-    //     throw `Unknown game type: ${gameType}. Aborting!`;
-    // }
 }
 
 /**
@@ -96,18 +102,7 @@ function calculateCorrectAnswer() {
             alert(`Unimplemented operator ${operator}`);
             throw(`Unimplemented operator ${operator}". Aborting!"`);
     }
-    // if (operator === "+") {
-    //     return [operand1 + operand2, "addition"];
-    // } else if (operator === "-"){
-    //     return [operand1 - operand2, "subtract"];
-    // } else if (operator === "x"){
-    //     return [operand1 * operand2, "multiply"];
-    // }else if (operator === "÷"){
-    //     return [operand1 / operand2, "division"];
-    // } else {
-    //     alert(`Unimplemented operator ${operator}`);
-    //     throw(`Unimplemented operator ${operator}". Aborting!"`);
-    // }
+
 }
 
 /**
@@ -133,9 +128,10 @@ function displayAdditionQuestion(operand1, operand2) {
 }
 
 function displaySubtractQuestion(operand1, operand2) {
-    document.getElementById('operand1').textContent = operand1;
-    document.getElementById('operand2').textContent = operand2;
+    document.getElementById('operand1').textContent = operand1 > operand2 ? operand1 : operand2;
+    document.getElementById('operand2').textContent = operand1 > operand2 ? operand2 : operand1;
     document.getElementById('operator').textContent = "-";
+
 }
 
 function displayMultiplyQuestion(operand1, operand2) {
@@ -145,7 +141,9 @@ function displayMultiplyQuestion(operand1, operand2) {
 }
 
 function displayDivisionQuestion(operand1, operand2) {
-    document.getElementById('operand1').textContent = operand1;
-    document.getElementById('operand2').textContent = operand2;
+    operand1 = operand1 * operand2;    
+    document.getElementById('operand1').textContent = operand1 > operand2 ? operand1 : operand2;
+    document.getElementById('operand2').textContent = operand1 > operand2 ? operand2 : operand1;
     document.getElementById('operator').textContent = "÷";
+
 }
