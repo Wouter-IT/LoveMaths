@@ -29,12 +29,30 @@ function runGame(gameType) {
     let num1 = Math.floor(Math.random() * 25) +1;
     let num2 = Math.floor(Math.random() * 25) +1;
 
-    if (gameType === "addition") {
-        displayAdditionQuestion(num1, num2);
-    } else {
-        alert(`Unknown game type: ${gameType}`);
-        throw `Unknown game type: ${gameType}. Aborting!`;
+    switch (gameType) {
+        case "addition":
+            displayAdditionQuestion(num1, num2);
+            break;
+        case "subtract":
+            displaySubtractQuestion(num1, num2);
+            break;
+        case "multiply":
+            displayMultiplyQuestion(num1, num2);
+            break;
+        case "division":
+            displayDivisionQuestion(num1, num2);
+            break;
+        default:
+            alert(`Unimplemented operator ${gameType}`);
+            throw(`Unimplemented operator ${gameType}". Aborting!"`);
     }
+
+    // if (gameType === "addition") {
+    //     displayAdditionQuestion(num1, num2);
+    // } else {
+    //     alert(`Unknown game type: ${gameType}`);
+    //     throw `Unknown game type: ${gameType}. Aborting!`;
+    // }
 }
 
 /**
@@ -65,12 +83,31 @@ function calculateCorrectAnswer() {
     let operand2 = parseInt(document.getElementById('operand2').innerText);
     let operator = document.getElementById('operator').innerText;
     
-    if (operator === "+") {
-        return [operand1 + operand2, "addition"];
-    } else {
-        alert(`Unimplemented operator ${operator}`);
-        throw(`Unimplemented operator ${operator}". Aborting!"`);
+    switch (operator) {
+        case "+":
+            return [operand1 + operand2, "addition"];
+        case "-":
+            return [operand1 - operand2, "subtract"];
+        case "x":
+            return [operand1 * operand2, "multiply"];
+        case "÷":
+            return [operand1 / operand2, "division"];
+        default:
+            alert(`Unimplemented operator ${operator}`);
+            throw(`Unimplemented operator ${operator}". Aborting!"`);
     }
+    // if (operator === "+") {
+    //     return [operand1 + operand2, "addition"];
+    // } else if (operator === "-"){
+    //     return [operand1 - operand2, "subtract"];
+    // } else if (operator === "x"){
+    //     return [operand1 * operand2, "multiply"];
+    // }else if (operator === "÷"){
+    //     return [operand1 / operand2, "division"];
+    // } else {
+    //     alert(`Unimplemented operator ${operator}`);
+    //     throw(`Unimplemented operator ${operator}". Aborting!"`);
+    // }
 }
 
 /**
@@ -105,4 +142,10 @@ function displayMultiplyQuestion(operand1, operand2) {
     document.getElementById('operand1').textContent = operand1;
     document.getElementById('operand2').textContent = operand2;
     document.getElementById('operator').textContent = "x";
+}
+
+function displayDivisionQuestion(operand1, operand2) {
+    document.getElementById('operand1').textContent = operand1;
+    document.getElementById('operand2').textContent = operand2;
+    document.getElementById('operator').textContent = "÷";
 }
